@@ -1,2 +1,2 @@
 global.MONGO_DB_CONNECTION_STRING =
-  "mongodb+srv://middlewareUser:Gt7Ff9HlTMKe5Hyl@sandbox.e8ulk.mongodb.net/bydbyt?retryWrites=true&w=majority";
+  "mongodb+srv://dbUser:Mdikr7WAXb0OIlUf@cluster0.nllsy.mongodb.net/test?authSource=admin&replicaSet=atlas-otyxyx-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true";
