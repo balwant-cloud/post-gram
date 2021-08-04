@@ -1,0 +1,19 @@
+{
+  "name": "post-gram",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "fastify": "^3.20.1",
+    "joi": "^17.4.2",
+    "lodash": "^4.17.21",
+    "mongoose": "^5.13.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Deorwine Infotech",
+  "license": "ISC"
+}
