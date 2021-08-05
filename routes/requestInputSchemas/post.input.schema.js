@@ -24,6 +24,16 @@ const description = Joi.string()
     "any.required": `Description ${validation_errors.field_required}`,
   });
 
+const user_name = Joi.string()
+  .required()
+  .max(20)
+  .messages({
+    "string.base": `User name ${validation_errors.string_base}`,
+    "string.empty": `User name ${validation_errors.field_empty}`,
+    "string.max": `User name ${validation_errors.string_max} 20`,
+    "any.required": `User name ${validation_errors.field_required}`,
+  });
+
 exports.addPost = Joi.object()
   .keys({
     description,
@@ -36,6 +46,7 @@ exports.addPost = Joi.object()
 exports.ratePost = Joi.object()
   .keys({
     rating,
+    user_name,
   })
   .messages({
     "object.base": validation_errors.body,

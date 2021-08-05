@@ -57,6 +57,6 @@ module.exports = [
         next();
       },
     ],
-    handler: PostController.ratePost,
+    handler: PostController.ratePostById,
   },
 ];

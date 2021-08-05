@@ -19,7 +19,10 @@ exports.getAllPosts = (request, reply) => {
       );
     })
     .catch((error) => {
-      return helpers.sendErrorResponse(error, reply);
+      return helpers.sendErrorResponse(
+        error.message || messages.common_reply_messages.error_unknown,
+        reply
+      );
     });
 };
 
@@ -40,7 +43,10 @@ exports.addPost = (request, reply) => {
       );
     })
     .catch((error) => {
-      return helpers.sendErrorResponse(error, reply);
+      return helpers.sendErrorResponse(
+        error.message || messages.common_reply_messages.error_unknown,
+        reply
+      );
     });
 };
 
@@ -53,17 +59,25 @@ exports.editPostById = (request, reply) => {
   models.post
     .updateOne({ _id: request.params.post_id }, request.body)
     .then((success) => {
-      return helpers.sendSuccessResponse(
-        success.n
-          ? messages.common_reply_messages.success_post_updated
-          : messages.common_reply_messages.success_post_not_exist,
-        {},
-        reply,
-        success.n
-      );
+      if (success.n) {
+        return helpers.sendSuccessResponse(
+          messages.common_reply_messages.success_post_updated,
+          {},
+          reply,
+          success.n
+        );
+      } else {
+        return helpers.sendErrorResponse(
+          messages.common_reply_messages.success_post_not_exist,
+          reply
+        );
+      }
     })
     .catch((error) => {
-      return helpers.sendErrorResponse(error, reply);
+      return helpers.sendErrorResponse(
+        error.message || messages.common_reply_messages.error_unknown,
+        reply
+      );
     });
 };
 
@@ -76,17 +90,25 @@ exports.deletePostById = (request, reply) => {
   models.post
     .deleteOne({ _id: request.params.post_id })
     .then((success) => {
-      return helpers.sendSuccessResponse(
-        success.n
-          ? messages.common_reply_messages.success_post_deleted
-          : messages.common_reply_messages.success_post_not_exist,
-        {},
-        reply,
-        success.n
-      );
+      if (success.n) {
+        return helpers.sendSuccessResponse(
+          messages.common_reply_messages.success_post_deleted,
+          {},
+          reply,
+          success.n
+        );
+      } else {
+        return helpers.sendErrorResponse(
+          messages.common_reply_messages.success_post_not_exist,
+          reply
+        );
+      }
     })
     .catch((error) => {
-      return helpers.sendErrorResponse(error, reply);
+      return helpers.sendErrorResponse(
+        error.message || messages.common_reply_messages.error_unknown,
+        reply
+      );
     });
 };
 
@@ -95,4 +117,35 @@ exports.deletePostById = (request, reply) => {
  * @param {Request} request
  * @param {Response} reply
  */
-exports.ratePost = (request, reply) => {};
+exports.ratePostById = (request, reply) => {
+  models.post
+    .findById(request.params.post_id)
+    .select("_id")
+    .then((post) => {
+      if (post && post._id) {
+        models.postRating
+          .create({
+            post_id: request.params.post_id,
+            ...request.body,
+          })
+          .then(() => {
+            return helpers.sendSuccessResponse(
+              messages.common_reply_messages.success_post_rating_added,
+              {},
+              reply
+            );
+          });
+      } else {
+        return helpers.sendErrorResponse(
+          messages.common_reply_messages.success_post_not_exist,
+          reply
+        );
+      }
+    })
+    .catch((error) => {
+      return helpers.sendErrorResponse(
+        error.message || messages.common_reply_messages.error_unknown,
+        reply
+      );
+    });
+};
