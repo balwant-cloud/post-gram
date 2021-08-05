@@ -8,7 +8,6 @@ const postSchema = new Schema(
   },
   {
     toObject: { virtuals: true },
-    toJSON: { virtuals: true },
     timestamps: true,
   }
 );
@@ -21,7 +20,6 @@ const postRatingSchema = new Schema(
   },
   {
     toObject: { virtuals: true },
-    toJSON: { virtuals: true },
     timestamps: true,
   }
 );

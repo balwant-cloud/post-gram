@@ -16,13 +16,11 @@ const rating = Joi.number()
 
 const description = Joi.string()
   .required()
-  .min(50)
   .max(500)
   .messages({
     "string.base": `Description ${validation_errors.string_base}`,
     "string.empty": `Description ${validation_errors.field_empty}`,
-    "string.min": `User address ${validation_errors.string_min} 50`,
-    "string.max": `User address ${validation_errors.string_max} 500`,
+    "string.max": `Description ${validation_errors.string_max} 500`,
     "any.required": `Description ${validation_errors.field_required}`,
   });
 

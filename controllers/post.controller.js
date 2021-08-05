@@ -10,6 +10,7 @@ const { messages } = require("../config/messages");
 exports.getAllPosts = (request, reply) => {
   models.post
     .find()
+    .select("-id -__v")
     .then((posts) => {
       return helpers.sendSuccessResponse(
         messages.common_reply_messages.success,
@@ -28,27 +29,19 @@ exports.getAllPosts = (request, reply) => {
  * @param {Response} reply
  */
 exports.addPost = (request, reply) => {
-  //   models.chefs
-  //     .find()
-  //     .populate({
-  //       path: "user",
-  //       select:
-  //         "-createdAt -favorite_campaigns -addresses -notification_settings -updatedAt -__v -linked_user_ids",
-  //     })
-  //     .then((result) => {
-  //       return helpers.sendSuccessResponse(
-  //         messages.common_reply_messages.success,
-  //         result,
-  //         reply,
-  //         1
-  //       );
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error in getAllChefs", error);
-  //       return helpers.sendErrorResponse(
-  //         messages.common_reply_messages.error_unknown
-  //       );
-  //     });
+  models.post
+    .create(request.body)
+    .then((success) => {
+      return helpers.sendSuccessResponse(
+        messages.common_reply_messages.success_post_added,
+        {},
+        reply,
+        1
+      );
+    })
+    .catch((error) => {
+      return helpers.sendErrorResponse(error, reply);
+    });
 };
 
 /**
