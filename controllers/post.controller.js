@@ -1,7 +1,7 @@
 const models = require("../database/models");
 const helpers = require("../utils/helpers");
 const { messages } = require("../config/messages");
-
+const PostServices = require("../services/post.services");
 /**
  * Get all posts
  * @param {Request} request
@@ -22,6 +22,35 @@ exports.getAllPosts = (request, reply) => {
       return helpers.sendErrorResponse(
         error.message || messages.common_reply_messages.error_unknown,
         reply
+      );
+    });
+};
+
+/**
+ * Get a post by id
+ * @param {Request} request
+ * @param {Response} reply
+ */
+exports.getPostById = (request, reply) => {
+  models.post
+    .findById(request.params.post_id)
+    .select("-id -__v")
+    .then((post) => {
+      return helpers.sendSuccessResponse(
+        messages.common_reply_messages.success,
+        post,
+        reply
+      );
+    })
+    .catch((error) => {
+      return helpers.sendErrorResponse(
+        error.message && error.message.includes("Cast to ObjectId failed")
+          ? "Incorrect post id."
+          : messages.common_reply_messages.error_unknown,
+        reply,
+        error.message && error.message.includes("Cast to ObjectId failed")
+          ? 404
+          : undefined
       );
     });
 };
@@ -129,6 +158,7 @@ exports.ratePostById = (request, reply) => {
             ...request.body,
           })
           .then(() => {
+            PostServices.updatePostAverageRatingByPostId(post._id);
             return helpers.sendSuccessResponse(
               messages.common_reply_messages.success_post_rating_added,
               {},

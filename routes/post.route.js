@@ -10,6 +10,11 @@ module.exports = [
     handler: PostController.getAllPosts,
   },
   {
+    method: "GET",
+    url: "post/:post_id",
+    handler: PostController.getPostById,
+  },
+  {
     method: "POST",
     url: "post",
     preHandler: [
