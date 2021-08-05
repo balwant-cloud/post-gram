@@ -119,7 +119,7 @@ exports.deletePostById = (request, reply) => {
  */
 exports.ratePostById = (request, reply) => {
   models.post
-    .findById(request.params.post_id)
+    .findOne({ _id: request.params.post_id })
     .select("_id")
     .then((post) => {
       if (post && post._id) {
@@ -132,7 +132,8 @@ exports.ratePostById = (request, reply) => {
             return helpers.sendSuccessResponse(
               messages.common_reply_messages.success_post_rating_added,
               {},
-              reply
+              reply,
+              1
             );
           });
       } else {
@@ -144,8 +145,13 @@ exports.ratePostById = (request, reply) => {
     })
     .catch((error) => {
       return helpers.sendErrorResponse(
-        error.message || messages.common_reply_messages.error_unknown,
-        reply
+        error.message && error.message.includes("Cast to ObjectId failed")
+          ? "Incorrect post id."
+          : messages.common_reply_messages.error_unknown,
+        reply,
+        error.message && error.message.includes("Cast to ObjectId failed")
+          ? 404
+          : undefined
       );
     });
 };
