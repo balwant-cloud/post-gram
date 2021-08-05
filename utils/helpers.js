@@ -6,12 +6,10 @@ const _ = require("lodash");
  * @param {String} message
  * @param {Object} data
  * @param {Response} reply
- * @param {Number} recordCount
  */
-exports.sendSuccessResponse = (message, data, reply, recordCount = 0) => {
+exports.sendSuccessResponse = (message, data, reply) => {
   var response = {
     status: true,
-    recordCount: recordCount ? recordCount : _.size(data),
     message: message,
   };
   if (_.size(data)) {

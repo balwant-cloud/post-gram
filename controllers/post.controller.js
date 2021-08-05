@@ -2,6 +2,7 @@ const models = require("../database/models");
 const helpers = require("../utils/helpers");
 const { messages } = require("../config/messages");
 const PostServices = require("../services/post.services");
+
 /**
  * Get all posts
  * @param {Request} request
@@ -92,8 +93,7 @@ exports.editPostById = (request, reply) => {
         return helpers.sendSuccessResponse(
           messages.common_reply_messages.success_post_updated,
           {},
-          reply,
-          success.n
+          reply
         );
       } else {
         return helpers.sendErrorResponse(
@@ -123,8 +123,7 @@ exports.deletePostById = (request, reply) => {
         return helpers.sendSuccessResponse(
           messages.common_reply_messages.success_post_deleted,
           {},
-          reply,
-          success.n
+          reply
         );
       } else {
         return helpers.sendErrorResponse(
