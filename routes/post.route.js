@@ -1,7 +1,6 @@
 const PostController = require("../controllers/post.controller");
-
-const helpers = require("../utils/helpers");
 const PostInputSchema = require("./requestInputSchemas/post.input.schema");
+const helpers = require("../utils/helpers");
 
 module.exports = [
   {
