@@ -26,7 +26,7 @@ module.exports = [
   },
   {
     method: "PUT",
-    url: "post/:id",
+    url: "post/:post_id",
     preHandler: [
       (request, reply, next) => {
         request.query = helpers.validateInputs(
@@ -41,7 +41,7 @@ module.exports = [
   },
   {
     method: "DELETE",
-    url: "post/:id",
+    url: "post/:post_id",
     handler: PostController.deletePost,
   },
   {

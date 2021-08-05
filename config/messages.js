@@ -8,6 +8,7 @@ exports.messages = {
     success_post_rating_added: "Post rated successfully.",
     success_post_added: "Post added successfully.",
     success_post_deleted: "Post deleted successfully.",
+    success_post_not_exist: "Post does not exist.",
     success_post_updated: "Post updated successfully.",
     error_unknown:
       "Something went wrong. We cannot fulfill your request at the moment.",

@@ -59,12 +59,14 @@ exports.editPost = (request, reply) => {};
 exports.deletePost = (request, reply) => {
   models.post
     .deleteOne({ _id: request.params.post_id })
-    .then(() => {
+    .then((success) => {
       return helpers.sendSuccessResponse(
-        messages.common_reply_messages.success_post_deleted,
+        success.n
+          ? messages.common_reply_messages.success_post_deleted
+          : messages.common_reply_messages.success_post_not_exist,
         {},
         reply,
-        1
+        success.n
       );
     })
     .catch((error) => {
