@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema, Types } = mongoose;
 
-const post = new Schema(
+const postSchema = new Schema(
   {
     description: String,
     avg_rating: Number,
@@ -13,7 +13,7 @@ const post = new Schema(
   }
 );
 
-const postRating = new Schema(
+const postRatingSchema = new Schema(
   {
     post_id: Types.ObjectId,
     rating: Number,
@@ -27,5 +27,5 @@ const postRating = new Schema(
 );
 
 //MODELS
-exports.post = mongoose.model("posts", post);
-exports.postRating = mongoose.model("posts.ratings", postRating);
+exports.post = mongoose.model("posts", postSchema);
+exports.postRating = mongoose.model("posts.ratings", postRatingSchema);
