@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const { Schema, Types } = mongoose;
 
-const posts = new Schema(
+const post = new Schema(
   {
     description: String,
     avg_rating: Number,
@@ -13,5 +13,19 @@ const posts = new Schema(
   }
 );
 
+const postRating = new Schema(
+  {
+    post_id: Types.ObjectId,
+    rating: Number,
+    user_name: String,
+  },
+  {
+    toObject: { virtuals: true },
+    toJSON: { virtuals: true },
+    timestamps: true,
+  }
+);
+
 //MODELS
-exports.posts = mongoose.model("posts", posts);
+exports.post = mongoose.model("posts", post);
+exports.postRating = mongoose.model("posts.ratings", postRating);

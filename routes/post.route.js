@@ -5,6 +5,11 @@ const PostInputSchema = require("./requestInputSchemas/post.input.schema");
 
 module.exports = [
   {
+    method: "GET",
+    url: "posts",
+    handler: PostController.getAllPosts,
+  },
+  {
     method: "POST",
     url: "post",
     preHandler: [

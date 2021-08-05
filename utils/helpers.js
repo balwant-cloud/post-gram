@@ -61,10 +61,10 @@ exports.sendValidationsErrorResponse = (errors, reply) => {
  * @param {Response} reply
  * @param {Number} statusCode
  */
-exports.sendErrorResponse = (message, reply, statusCode = undefined) => {
+exports.sendErrorResponse = (error, reply, statusCode = undefined) => {
   var err = {
     status: false,
-    message: message,
+    message: error.message || messages.common_reply_messages.error_unknown,
   };
 
   reply.status(statusCode ? statusCode : 400).send(err);
