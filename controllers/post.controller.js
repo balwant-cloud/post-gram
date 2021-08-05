@@ -49,14 +49,30 @@ exports.addPost = (request, reply) => {
  * @param {Request} request
  * @param {Response} reply
  */
-exports.editPost = (request, reply) => {};
+exports.editPostById = (request, reply) => {
+  models.post
+    .updateOne({ _id: request.params.post_id }, request.body)
+    .then((success) => {
+      return helpers.sendSuccessResponse(
+        success.n
+          ? messages.common_reply_messages.success_post_updated
+          : messages.common_reply_messages.success_post_not_exist,
+        {},
+        reply,
+        success.n
+      );
+    })
+    .catch((error) => {
+      return helpers.sendErrorResponse(error, reply);
+    });
+};
 
 /**
  * Delete a post
  * @param {Request} request
  * @param {Response} reply
  */
-exports.deletePost = (request, reply) => {
+exports.deletePostById = (request, reply) => {
   models.post
     .deleteOne({ _id: request.params.post_id })
     .then((success) => {

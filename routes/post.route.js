@@ -37,12 +37,12 @@ module.exports = [
         next();
       },
     ],
-    handler: PostController.editPost,
+    handler: PostController.editPostById,
   },
   {
     method: "DELETE",
     url: "post/:post_id",
-    handler: PostController.deletePost,
+    handler: PostController.deletePostById,
   },
   {
     method: "POST",
