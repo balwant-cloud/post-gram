@@ -29,18 +29,10 @@ fastify.register(require("fastify-helmet"), {
 
 fastify.register(require("fastify-formbody"));
 
-// Declare a route
+// Declare routes
 const routes = require("./routes");
 routes.forEach((route) => {
   const base_path = "/api/";
-  /**
-   * Block api call in iframe
-   */
-  route.onSend = (request, reply, payload, done) => {
-    reply.header("X-XSS-Protection", "1; mode=block");
-    done(null, payload);
-  };
-  //append base path
   route.url = base_path + route.url;
   fastify.route(route);
 });
